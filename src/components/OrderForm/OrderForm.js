@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { postOrder } from '../../apiCalls';
 
 class OrderForm extends Component {
   constructor(props) {
@@ -9,6 +10,10 @@ class OrderForm extends Component {
       ingredients: []
     };
   }
+
+  // componentDidUpdate() {
+    
+  // }
 
   handleIngredientChange = e => {
     e.preventDefault();
@@ -43,6 +48,15 @@ class OrderForm extends Component {
 
     if(this.state.name.length && this.state.ingredients.length) {
       console.log('HEY YOU CAN SUBMIT THIS ORDER')
+
+      let data = {
+        name: this.state.name,
+        ingredients: this.state.ingredients,
+      }
+      postOrder("http://localhost:3001/api/v1/orders", data)
+      .then(res => console.log("This is your response from post", res))
+      .catch(err =>  console.error("This is your error from post", err))
+
       this.clearInputs();
     } else {
       console.log("YOU CAN'T SUBMIT THIS YET")
