@@ -1,0 +1,15 @@
+.button-list {
+    width: 250px;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.clear-btn {
+
+    padding-top: 2rem;
+}
+
+input {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}

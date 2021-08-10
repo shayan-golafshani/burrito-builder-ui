@@ -89,9 +89,11 @@ class OrderForm extends Component {
           onChange={e => this.handleNameChange(e)}
         />
 
+        <section className='button-list'>
         { ingredientButtons }
+        </section>
 
-        <button onClick={
+        <button className='clear-btn' onClick={
           e => {
             e.preventDefault()
             this.setState({ingredients:[]})
