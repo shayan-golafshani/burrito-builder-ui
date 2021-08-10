@@ -54,7 +54,7 @@ class OrderForm extends Component {
         ingredients: this.state.ingredients,
       }
 
-      //console.log(this.props, "THEsE ARE YOUR PROPS BISH")
+      
       this.props.addOrder(data);
 
       
