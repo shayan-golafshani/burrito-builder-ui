@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { postOrder } from '../../apiCalls';
+
 
 class OrderForm extends Component {
   constructor(props) {
@@ -53,10 +53,11 @@ class OrderForm extends Component {
         name: this.state.name,
         ingredients: this.state.ingredients,
       }
-      postOrder("http://localhost:3001/api/v1/orders", data)
-      .then(res => console.log("This is your response from post", res))
-      .catch(err =>  console.error("This is your error from post", err))
 
+      //console.log(this.props, "THEsE ARE YOUR PROPS BISH")
+      this.props.addOrder(data);
+
+      
       this.clearInputs();
     } else {
       console.log("YOU CAN'T SUBMIT THIS YET")
