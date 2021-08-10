@@ -11,6 +11,18 @@ class OrderForm extends Component {
   }
 
 
+  handleNameChange = e => {
+    e.preventDefault()
+    console.log('This is the event!', e)
+    this.setState({
+      name: e.target.value
+    }, () => {
+      console.log(this.state.name);
+    });
+  }
+
+  //this.setState({name: e.target.value})
+
   handleSubmit = e => {
     e.preventDefault();
     this.clearInputs();
