@@ -30,6 +30,8 @@ describe('Main app page', () => {
             fixture: 'orders2.json'
             });
             cy.visit('http://localhost:3000');
-            
+
+            cy.get('section > :nth-child(3)').should('contain', 'Leta')
+            cy.get('section > :nth-child(3)').should('contain', 'sofritas')
     });
 });
