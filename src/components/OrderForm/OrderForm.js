@@ -12,8 +12,7 @@ class OrderForm extends Component {
 
   handleIngredientChange = e => {
     e.preventDefault();
-
-    console.log(e.target.name, "THIS IS THE CLICK EVENT, I NEED TO GET THE VALUE AND UPDATE THE INGREDIENTS LIST")
+    //console.log(e.target.name, "THIS IS THE CLICK EVENT, I NEED TO GET THE VALUE AND UPDATE THE INGREDIENTS LIST")
 
     if(!this.state.ingredients.includes(e.target.name)) {
       this.setState({
@@ -29,7 +28,7 @@ class OrderForm extends Component {
 
   handleNameChange = e => {
     e.preventDefault()
-    console.log('This is the event!', e)
+    //console.log('This is the event!', e)
     this.setState({
       name: e.target.value
     }, () => {
@@ -41,7 +40,14 @@ class OrderForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.clearInputs();
+
+    if(this.state.name.length && this.state.ingredients.length) {
+      console.log('HEY YOU CAN SUBMIT THIS ORDER')
+      this.clearInputs();
+    } else {
+      console.log("YOU CAN'T SUBMIT THIS YET")
+    }
+
   }
 
   clearInputs = () => {
@@ -79,7 +85,9 @@ class OrderForm extends Component {
 
         <p>Order: { this.state.ingredients.join(', ') || 'Nothing selected' }</p>
 
-        <button onClick={e => this.handleSubmit(e)}>
+        <button
+          disabled={!(this.state.name.length && this.state.ingredients.length)} 
+          onClick={e => this.handleSubmit(e)}>
           Submit Order
         </button>
       </form>
