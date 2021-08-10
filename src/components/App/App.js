@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import {getOrders} from '../../apiCalls';
-import { postOrder } from '../../apiCalls';
+import {getOrders, postOrder, deleteOrder} from '../../apiCalls';
 import Orders from '../../components/Orders/Orders';
 import OrderForm from '../../components/OrderForm/OrderForm';
 
@@ -34,6 +33,19 @@ class App extends Component {
       }).catch(err =>  console.error("This is your error from post", err))
   }
 
+  removeOrder = (id) => {
+    deleteOrder(id)
+      .then(response => {
+        if (response.ok) {
+          const filteredOrders = this.state.orders.filter(order => order.id !== id);       
+          this.setState({ orders: filteredOrders, error: '' });
+        } else {
+          this.setState({ error: `There was a problem deleting that order!` })
+        }
+      })
+  }
+
+
   // postOrder("http://localhost:3001/api/v1/orders", data)
   //     .then(res => console.log("This is your response from post", res))
   //     .catch(err =>  console.error("This is your error from post", err))
@@ -47,7 +59,9 @@ class App extends Component {
           <OrderForm addOrder={this.addOrder} />
         </header>
 
-        <Orders orders={this.state.orders}/>
+        <Orders 
+        removeOrder={this.removeOrder}
+        orders={this.state.orders}/>
       </main>
     );
   }

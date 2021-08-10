@@ -13,3 +13,7 @@ export async function postOrder(url, data) {
   });
   return response.json();
 }
+
+export const deleteOrder = (id) => {
+  return fetch(`http://localhost:3001/api/v1/orders/${id}`, { method: 'DELETE' })
+}
