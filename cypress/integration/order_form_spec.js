@@ -27,7 +27,7 @@ describe('Order form functionality', () => {
         cy.get('[name="beans"]').click()
         cy.get('[name="steak"]').click()
         cy.get('[name="guacamole"]').click()
-        cy.get(':nth-child(14)').click()
+        cy.get('.clear-btn').click()
         cy.get('p').should('contain', 'Order:')
     })
 
@@ -44,11 +44,20 @@ describe('Order form functionality', () => {
     })
 
     it("Should show a new card for a recently entered order", () => {
+        cy.intercept('POST', 'http://localhost:3001/api/v1/orders', {
+            statusCode: 201,
+            body: {
+              id:3,
+              name: "Shayan",
+              ingredients: ['beans', 'steak', 'guacamole']
+            }
+            })
+        
         cy.get('input').type('Shayan');
         cy.get('[name="beans"]').click()
         cy.get('[name="steak"]').click()
         cy.get('[name="guacamole"]').click()
-        cy.get(':nth-child(16)').click()
+        cy.get('form > :nth-child(5)').click()
         cy.get('section > :nth-child(3)').should('contain', 'Shayan')
         cy.get('section > :nth-child(3)').should('contain', 'beans')
     })

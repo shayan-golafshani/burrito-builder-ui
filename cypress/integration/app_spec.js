@@ -1,11 +1,10 @@
 describe('Main app page', () => {
     beforeEach(() => {
-        
         cy.intercept('GET', 'http://localhost:3001/api/v1/orders', {
         statusCode: 200,
         fixture: 'orders.json'
-        });
-        cy.visit('http://localhost:3000/')
+        })
+        .visit('http://localhost:3000/')
     })
 
     it('Should contain header with zenbox text' , ()=> {
@@ -13,23 +12,17 @@ describe('Main app page', () => {
     })
 
     it('Should be able to show a new post', () => {
-        cy.visit('http://localhost:3000/')
         cy.intercept('POST', 'http://localhost:3001/api/v1/orders', {
-        statusCode: 201,
-        body: {
-          name: "Leta",
-          ingredients: ['sofritas']
-        }
-      })
+            statusCode: 201,
+            body: {
+              id:3,
+              name: "Leta",
+              ingredients: ['sofritas']
+            }
+            })
             cy.get('input').type('Leta')
             cy.get('[name="sofritas"]').click();
-            cy.get(':nth-child(16)').click()
-
-            cy.intercept('GET', 'http://localhost:3001/api/v1/orders', {
-            statusCode: 200,
-            fixture: 'orders2.json'
-            });
-            cy.visit('http://localhost:3000');
+            cy.get('form > :nth-child(5)').click()
 
             cy.get('section > :nth-child(3)').should('contain', 'Leta')
             cy.get('section > :nth-child(3)').should('contain', 'sofritas')
